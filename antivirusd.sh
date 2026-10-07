@@ -17,13 +17,13 @@ scan_directory() {
             extension="${filename##*.}"
             if [ "$extension" == "exe" ] || [ "$extension" == "bat" ] || [ "$extension" == "vbs" ] || [ "$extension" == "scr" ] || [ "$extension" == "ps1" ]
             then 
-                echo "Malicious file detected: $filename"
+                echo "$filename is malicious and it is DELETED"
                 cp "$file" "$malicious_dir/"
                 rm "$file"
             else 
                 if grep -qiE "virus|trojan|malware|worm|ransomware" "$file"
                 then
-                    echo "Malicious content detected in file: $filename"
+                    echo "$filename is malicious and it is DELETED"
                     cp "$file" "$malicious_dir/"
                     rm "$file"
                 fi
