@@ -215,3 +215,26 @@ Standard cron does not have a seconds field. Therefore, the requirement to run t
 * * * * * sleep 23; command
 
 Cron starts the command every minute, and sleep 23 delays the antivirus scan by 23 seconds.
+
+Bonus 2: Whitelist for False Positives
+
+The whitelist feature allows the user to restore a file that was incorrectly detected as malicious.
+
+A file restored using the restore script is automatically added to whitelist.txt. The antivirus scripts check this file before scanning each file. If the filename exists in the whitelist, the file is skipped and is not deleted even if it matches a malicious extension or keyword.
+
+Whitelist file:
+- whitelist.txt stores the filenames of restored files.
+- Each filename is stored on a separate line.
+
+How it works:
+1. Run the restore script using make target2.
+2. Select a malicious file.
+3. Choose option 1 to restore the file.
+4. The restored filename is automatically added to whitelist.txt.
+5. During future scans, the antivirus checks whitelist.txt.
+6. If the filename is found in the whitelist, the file is skipped.
+
+Testing:
+A malicious file can be restored and added to the whitelist. After that, running the antivirus again does not delete the whitelisted file.
+
+The whitelist is used by both antivirusd.sh and antivirus-cron.sh.

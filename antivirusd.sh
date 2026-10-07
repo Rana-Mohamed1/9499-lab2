@@ -14,6 +14,10 @@ scan_directory() {
         if [ -f "$file" ]
         then
             filename=$(basename "$file")
+            if grep -Fxq "$filename" whitelist.txt
+                echo "$filename is whitelisted. Skipping."
+                continue
+            fi
             extension="${filename##*.}"
             if [ "$extension" == "exe" ] || [ "$extension" == "bat" ] || [ "$extension" == "vbs" ] || [ "$extension" == "scr" ] || [ "$extension" == "ps1" ]
             then 

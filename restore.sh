@@ -36,6 +36,7 @@ read action_choice
 if [ "$action_choice" = "1" ]
 then 
     mv "$selected_file" "$dir/"
+    echo "$(basename "$selected_file")" >> whitelist.txt
     echo "Restored $(basename "$selected_file") to $dir."
 elif [ "$action_choice" = "2" ]
 then
