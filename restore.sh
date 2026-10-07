@@ -7,7 +7,7 @@ echo "Malicious files directory: $malicious_dir"
 
 if [ -z "$(ls -A "$malicious_dir")" ]
 then
-    echo "No malicious files found in the directory."
+    echo "No malicious files to review."
     exit 0
 fi
 
@@ -36,11 +36,11 @@ read action_choice
 if [ "$action_choice" = "1" ]
 then 
     mv "$selected_file" "$dir/"
-    echo "Restored $(basename "$selected_file") back into source directory."
+    echo "Restored $(basename "$selected_file") to $dir."
 elif [ "$action_choice" = "2" ]
 then
     rm "$selected_file"
-    echo "Permanently deleted $(basename "$selected_file")."
+    echo "$(basename "$selected_file") Permanently deleted ."
 elif [ "$action_choice" = "3" ]
 then
     echo "Leaving $(basename "$selected_file") as-is."
