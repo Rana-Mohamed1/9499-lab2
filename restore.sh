@@ -12,25 +12,25 @@ then
 fi
 
 files=("$malicious_dir"/*)
-echo "Malicious files found in the directory:"
+echo "Choose a file:"
 for i in "${!files[@]}"
 do
-    echo "$((i+1)). $(basename "${files[$i]}")"
+    echo "$((i+1)): $(basename "${files[$i]}")"
 done
 
 echo "Enter file number"
 read choice 
-if [ "$choice" -lt 1 ] || [ "$choice" -gt "${#files[@]}" ]
+if ! [[ "$choice" =~ ^[0-9]+$ ]] || [ "$choice" -lt 1 ] || [ "$choice" -gt "${#files[@]}" ]
 then
     echo "Invalid file number. Exiting."
     exit 1
 fi
 selected_file="${files[$((choice-1))]}"
-echo "Selected file: $(basename "$selected_file")"
+echo "for $(basename "$selected_file") :"
 
-echo "1.Restore this file back into source directory"
-echo "2.Permanently delete this file from malicious files directory"
-echo "3.Leave this file as-is"
+echo "1.Restore this file back into dir (it was a false positive)"
+echo "2.Permanently delete this file from malicious_dir (it was genuinely malicious)"
+echo "3.Go back"
 echo "Enter your choice"
 read action_choice
 if [ "$action_choice" = "1" ]

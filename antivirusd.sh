@@ -14,7 +14,8 @@ scan_directory() {
         if [ -f "$file" ]
         then
             filename=$(basename "$file")
-            if grep -Fxq "$filename" whitelist.txt
+            if grep -Fxq "$filename" /home/rana-mohamed/Downloads/lab2/whitelist.txt
+            then
                 echo "$filename is whitelisted. Skipping."
                 continue
             fi
@@ -53,6 +54,6 @@ while true
     else
         echo "Changes detected in the directory."
         scan_directory
-        cp directory-info.new directory-info.last
+        ls -l "$dir" > directory-info.last
     fi
 done
